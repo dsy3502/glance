@@ -1,6 +1,6 @@
 <org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@2.x">
   <actions/>
-  <description>Multibranch pipeline for https://github.com/dsy3502/glance.git</description>
+  <description>Multibranch pipeline for glance</description>
   <properties/>
   <folderViews class="com.cloudbees.hudson.plugins.folder.views.DefaultFolderViewHolder" plugin="cloudbees-folder@6.x">
     <views>
@@ -30,9 +30,9 @@
     <data>
       <jenkins.branch.BranchSource>
         <source class="jenkins.plugins.git.GitSCMSource" plugin="git@4.x">
-          <id>https://github.com/dsy3502/glance.git-git</id>
+          <id>glance-git</id>
           <remote>https://github.com/dsy3502/glance.git</remote>
-          <credentialsId/>
+          <credentialsId>dsy_github_token</credentialsId>  <!-- 添加凭据ID -->
           <traits/>
         </source>
         <strategy class="jenkins.branch.NamedExceptionsBranchPropertyStrategy">
