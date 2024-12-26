@@ -1,0 +1,62 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Python application
+
+on:
+  push:
+    branches: [ "master" , "develop" ]
+  pull_request:
+    branches: [ "*" ]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    # - name: Run Coverage Tests
+    # run: python test
+  
+  build-1:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Login to Github Packages
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+       
+    - name: clone kolla-build code
+      run: |
+        git clone -b stable/2023.2 https://github.com/dsy3502/kolla.git
+        
+    - name: Run kolla-build
+      run: |
+        cd ./kolla
+        pip install -r requirements.txt
+        chmod 777 ./tools/build.sh
+        ./tools/build.sh --registry ${{ secrets.DOCKER_REGISTRY }} --namespace dongshanyi --branch ${GITHUB_REF##*/} --repo ${module} --skip-images "base,openstack-base"
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
