@@ -35,7 +35,7 @@
         <credentialsId>dsy_github_token</credentialsId>
         <traits>
           <org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
-            <strategyId>1</strategyId>
+            <strategyId>3</strategyId>
           </org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
           <org.jenkinsci.plugins.github__branch__source.TagDiscoveryTrait/>
         </traits>
