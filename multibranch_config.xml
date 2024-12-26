@@ -31,7 +31,7 @@
       <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource">
         <id>glance-github</id>
         <repoOwner></repoOwner>
-        <repository>https://github.com/dsy3502/glance.git</repository>
+        <repository>glance</repository>
         <credentialsId>dsy_github_token</credentialsId>
         <traits>
           <org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
