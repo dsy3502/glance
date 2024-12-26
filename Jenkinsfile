@@ -19,7 +19,7 @@ pipeline {
             printPostContent: true,
             regexpFilterExpression: 'completed\\sdevelop\\ssuccess',
             regexpFilterText: '$action $branch $result',
-            token: 'nova'
+            token: 'glance'
         )
     }
 
@@ -31,7 +31,7 @@ pipeline {
             }
             parallel {
                
-                stage('pull ${module}') {
+                stage('pull glance') {
                     agent {
                       node {
                         label "dingo_stack"
@@ -39,10 +39,10 @@ pipeline {
                     }
             
                     steps {
-                        echo "pull ${module} images to test"
-                        sh 'kolla-ansible -i /root/multinode pull --tag ${module} -e openstack_tag=latest'
+                        echo "pull glance images to test"
+                        sh 'kolla-ansible -i /root/multinode pull --tag glance -e openstack_tag=latest'
                         echo 'deploy images to develop '
-                        sh 'kolla-ansible -i /root/multinode upgrade --tag ${module} -e openstack_tag=latest'
+                        sh 'kolla-ansible -i /root/multinode upgrade --tag glance -e openstack_tag=latest'
                     }
                 }
             }
@@ -54,17 +54,17 @@ pipeline {
 
             parallel {
               
-                stage('pull ${module}') {
+                stage('pull glance') {
                     agent {
                       node {
                         label "dingo_stack"
                       }
                     }
                     steps {
-                        echo "pull ${module} images to dev"
-                        sh 'kolla-ansible -i /root/multinode pull --tag ${module} -e openstack_tag=${branch}'
+                        echo "pull glance images to dev"
+                        sh 'kolla-ansible -i /root/multinode pull --tag glance -e openstack_tag=${branch}'
                         echo 'deploy images to develop '
-                        sh 'kolla-ansible -i /root/multinode upgrade --tag ${module} -e openstack_tag=${branch}'
+                        sh 'kolla-ansible -i /root/multinode upgrade --tag glance -e openstack_tag=${branch}'
                     }
                 }
             }
