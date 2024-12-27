@@ -57,7 +57,7 @@ jobs:
         cd ./kolla
         pip install -r requirements.txt
         chmod 777 ./tools/build.sh
-        echo "./tools/build.sh --registry ${{ secrets.DOCKER_REGISTRY }} --namespace dongshanyi --branch ${GITHUB_REF##*/} --repo glance --skip-images "base,openstack-base"
+        echo ./tools/build.sh --registry ${{ secrets.DOCKER_REGISTRY }} --namespace dongshanyi --branch ${GITHUB_REF##*/} --repo glance --skip-images "base,openstack-base"
         eval $(echo  "./tools/build.sh --registry ${{ secrets.DOCKER_REGISTRY }} --namespace dongshanyi --branch ${GITHUB_REF##*/} --repo glance --skip-images "base,openstack-base"")
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
